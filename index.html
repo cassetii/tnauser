@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNA 2026 - Bank Sulselbar</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- TNA Data (dari Excel) -->
+    <script src="./tna-data.js"></script>
+    
+    <style>
+        :root {
+            --primary: #0A4D8C;
+            --primary-dark: #063A6A;
+            --primary-light: #1E6FBA;
+            --secondary: #D4A84B;
+            --secondary-light: #E8C678;
+            --accent: #00B4D8;
+            --dark: #1A1A2E;
+            --light: #F8FAFC;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-400: #94A3B8;
+            --gray-500: #64748B;
+            --gray-600: #475569;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-gold: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gray-100);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== LOGIN PAGE ===== */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-left {
+            flex: 1;
+            background: var(--gradient-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: patternMove 30s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        .login-left .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+
+        .login-left .logo-container {
+            width: 180px;
+            height: 180px;
+            background: white;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: var(--shadow-xl);
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .login-left .logo-container img {
+            width: 140px;
+            height: auto;
+        }
+
+        .login-left h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .login-left p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 400px;
+            line-height: 1.7;
+        }
+
+        .decorative-circles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            left: -50px;
+            animation: pulse 4s ease-in-out infinite 1s;
+        }
+
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            bottom: 30%;
+            right: 10%;
+            animation: pulse 4s ease-in-out infinite 2s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+        }
+
+        .login-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            background: var(--light);
+        }
+
+        .login-form-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-form-container h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-form-container .subtitle {
+            color: var(--gray-500);
+            margin-bottom: 2.5rem;
+        }
+
+        .form-floating {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-floating .form-control {
+            height: 60px;
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 1rem 1rem 1rem 3.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-floating .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(10, 77, 140, 0.1);
+        }
+
+        .form-floating .input-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .form-floating .form-control:focus + .input-icon,
+        .form-floating .form-control:not(:placeholder-shown) + .input-icon {
+            color: var(--primary);
+        }
+
+        .btn-login {
+            width: 100%;
+            height: 60px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login.loading {
+            pointer-events: none;
+        }
+
+        .btn-login .spinner {
+            display: none;
+        }
+
+        .btn-login.loading .spinner {
+            display: block;
+        }
+
+        .btn-login.loading .btn-text {
+            display: none;
+        }
+
+        .alert-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .alert {
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .alert-danger {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .alert-success {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        /* ===== MAIN APP ===== */
+        .app-page {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .app-header {
+            background: var(--gradient-primary);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .header-logo img {
+            width: 40px;
+        }
+
+        .header-title {
+            color: white;
+        }
+
+        .header-title h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .header-title p {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            text-align: right;
+            color: white;
+        }
+
+        .user-info .name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .user-info .jabatan {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .profile-details h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-details .npp {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .profile-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-item .icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .profile-item .info label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.15rem;
+        }
+
+        .profile-item .info span {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        /* Stats Cards */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease backwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon.total { background: var(--gradient-primary); }
+        .stat-icon.completed { background: linear-gradient(135deg, #10B981 0%, #34D399 100%); }
+        .stat-icon.pending { background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%); }
+        .stat-icon.progress { background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%); }
+
+        .stat-content h4 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-content p {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: slideUp 0.5s ease 0.3s backwards;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid var(--gray-200);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background: var(--gray-100);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active::after {
+            transform: scaleX(1);
+        }
+
+        .tab-btn .badge {
+            background: var(--gray-200);
+            color: var(--gray-600);
+            padding: 0.25rem 0.625rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tab-btn.active .badge {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tabs-content {
+            padding: 2rem;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Module Cards */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .module-card {
+            background: var(--gray-100);
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gray-300);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow);
+        }
+
+        .module-card.selected {
+            background: #EBF5FF;
+            border-color: var(--primary);
+        }
+
+        .module-card.selected::before {
+            background: var(--primary);
+        }
+
+        .module-card.required::before {
+            background: var(--secondary);
+        }
+
+        .module-card.required.selected::before {
+            background: var(--success);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .module-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--gray-300);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            margin-top: 2px;
+        }
+
+        .module-card.selected .module-checkbox {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .module-info {
+            flex: 1;
+        }
+
+        .module-code {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .module-name {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .module-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .module-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .module-badge.basic {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .module-badge.intermediate {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .module-badge.advance {
+            background: #FCE7F3;
+            color: #9D174D;
+        }
+
+        .module-badge.required {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .module-badge.optional {
+            background: var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-header h4 {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .progress-header span {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .progress-bar-container {
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Submit Section */
+        .submit-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .submit-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .submit-info .icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+            font-size: 1.25rem;
+        }
+
+        .submit-info p {
+            margin: 0;
+            color: var(--gray-600);
+        }
+
+        .submit-info p strong {
+            color: var(--dark);
+        }
+
+        .btn-submit {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-export {
+            background: var(--gray-100);
+            color: var(--dark);
+            border: 2px solid var(--gray-300);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-export:hover {
+            background: var(--gray-200);
+            border-color: var(--gray-400);
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toast.success .toast-icon { color: var(--success); }
+        .toast.error .toast-icon { color: var(--danger); }
+        .toast.warning .toast-icon { color: var(--warning); }
+
+        .toast-message {
+            flex: 1;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Category Section */
+        .category-section {
+            margin-bottom: 2rem;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .category-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .category-count {
+            margin-left: auto;
+            background: var(--gray-200);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .login-page {
+                flex-direction: column;
+            }
+            
+            .login-left {
+                padding: 3rem 2rem;
+                min-height: auto;
+            }
+            
+            .login-left h1 {
+                font-size: 2rem;
+            }
+            
+            .login-right {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .submit-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .tabs-header {
+                flex-wrap: nowrap;
+            }
+            
+            .tab-btn {
+                min-width: 150px;
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-badge.submitted {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .status-badge.draft {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .status-badge.not-started {
+            background: var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--gray-500);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--gray-300);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h4 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Search Box */
+        .search-box {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(10, 77, 140, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.25rem;
+            border: 2px solid var(--gray-200);
+            background: white;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Memuat data...</p>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Login Page -->
+    <div class="login-page" id="loginPage">
+        <div class="login-left">
+            <div class="decorative-circles">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+            </div>
+            <div class="content">
+                <div class="logo-container">
+                    <img src="./logo.png" alt="Bank Sulselbar" style="width: 140px; height: auto;">
+                </div>
+                <h1>Training Need Analysis</h1>
+                <p>Sistem Analisis Kebutuhan Pelatihan Pegawai Bank Sulselbar Tahun 2026</p>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-form-container">
+                <h2>Selamat Datang!</h2>
+                <p class="subtitle">Masukkan NPP Anda untuk melanjutkan</p>
+                
+                <div class="alert-container" id="alertContainer"></div>
+                
+                <form id="loginForm">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="nppInput" placeholder="NPP" required maxlength="20" autocomplete="off">
+                        <i class="fas fa-id-card input-icon"></i>
+                    </div>
+                    
+                    <button type="submit" class="btn-login" id="btnLogin">
+                        <span class="btn-text">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Masuk
+                        </span>
+                        <div class="spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 2rem; color: var(--gray-400); font-size: 0.85rem;">
+                    <p>© 2026 Bank Sulselbar - Divisi Human Capital</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-page" id="appPage">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="header-logo">
+                        <img src="./logo.png" alt="Bank Sulselbar" style="width: 40px; height: auto;">
+                    </div>
+                    <div class="header-title">
+                        <h1>TNA 2026</h1>
+                        <p>Training Need Analysis</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <div class="name" id="headerName">-</div>
+                        <div class="jabatan" id="headerJabatan">-</div>
+                    </div>
+                    <button class="btn-logout" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Keluar
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">-</div>
+                    <div class="profile-details">
+                        <h3 id="profileName">-</h3>
+                        <p class="npp">NPP: <span id="profileNPP">-</span></p>
+                    </div>
+                    <div style="margin-left: auto;">
+                        <span class="status-badge not-started" id="statusBadge">
+                            <i class="fas fa-clock"></i>
+                            Belum Diisi
+                        </span>
+                    </div>
+                </div>
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <div class="icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="info">
+                            <label>Jabatan</label>
+                            <span id="profileJabatan">-</span>
+                        </div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="icon"><i class="fas fa-sitemap"></i></div>
+                        <div class="info">
+                            <label>Posisi</label>
+                            <span id="profilePosisi">-</span>
+                        </div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="icon"><i class="fas fa-building"></i></div>
+                        <div class="info">
+                            <label>Unit Kerja</label>
+                            <span id="profileUnitKerja">-</span>
+                        </div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="icon"><i class="fas fa-layer-group"></i></div>
+                        <div class="info">
+                            <label>Level</label>
+                            <span id="profileLevel">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon total"><i class="fas fa-book"></i></div>
+                    <div class="stat-content">
+                        <h4 id="statTotal">0</h4>
+                        <p>Total Modul</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon completed"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-content">
+                        <h4 id="statCompleted">0</h4>
+                        <p>Sudah Dipilih</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pending"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="stat-content">
+                        <h4 id="statPending">0</h4>
+                        <p>Belum Dipilih</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon progress"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-content">
+                        <h4 id="statProgress">0%</h4>
+                        <p>Progress</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Container -->
+            <div class="progress-container">
+                <div class="progress-header">
+                    <h4><i class="fas fa-tasks"></i> Progress Pengisian TNA</h4>
+                    <span id="progressText">0 / 0 modul dipilih</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Tabs Container -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="soft">
+                        <i class="fas fa-users"></i>
+                        Soft Competencies
+                        <span class="badge" id="softCount">0</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tech">
+                        <i class="fas fa-cogs"></i>
+                        Technical Competencies
+                        <span class="badge" id="techCount">0</span>
+                    </button>
+                </div>
+                <div class="tabs-content">
+                    <!-- Search and Filter -->
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchModule" placeholder="Cari modul berdasarkan kode atau nama...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">Semua</button>
+                        <button class="filter-btn" data-filter="required">Wajib</button>
+                        <button class="filter-btn" data-filter="optional">Opsional</button>
+                        <button class="filter-btn" data-filter="selected">Sudah Dipilih</button>
+                        <button class="filter-btn" data-filter="unselected">Belum Dipilih</button>
+                    </div>
+
+                    <!-- Soft Competencies -->
+                    <div class="tab-pane active" id="tabSoft">
+                        <div id="softModulesContainer">
+                            <!-- Modules will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Technical Competencies -->
+                    <div class="tab-pane" id="tabTech">
+                        <div id="techModulesContainer">
+                            <!-- Modules will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Section -->
+            <div class="submit-section">
+                <div class="submit-info">
+                    <div class="icon"><i class="fas fa-info-circle"></i></div>
+                    <p>
+                        <strong>Petunjuk:</strong> Centang modul yang sudah pernah Anda ikuti. 
+                        Data akan tersimpan otomatis dan dapat diubah sampai periode TNA ditutup.
+                    </p>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn-export" onclick="exportPDF()">
+                        <i class="fas fa-file-pdf"></i>
+                        Export PDF
+                    </button>
+                    <button class="btn-submit" id="btnSubmit" onclick="submitTNA()">
+                        <i class="fas fa-paper-plane"></i>
+                        Simpan TNA
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ===== FIREBASE CONFIGURATION =====
+        const firebaseConfig = {
+            apiKey: "AIzaSyBiwuLzJ8lVBsP9UJ4w6HU2JevCF7K8NNk",
+            authDomain: "tnahumancapital.firebaseapp.com",
+            projectId: "tnahumancapital",
+            storageBucket: "tnahumancapital.firebasestorage.app",
+            messagingSenderId: "618822378444",
+            appId: "1:618822378444:web:8cd59870928bd251613369",
+            measurementId: "G-MR5NEYYE07"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ===== GLOBAL STATE =====
+        let currentUser = null;
+        let allModules = { soft: [], tech: [] };
+        let selectedModules = new Set();
+        let userModules = { soft: [], tech: [] };
+        let submissionData = null;
+
+        // ===== DEMO DATA (menggunakan data dari Excel) =====
+        const DEMO_MODE = false; // Production mode - menggunakan Firebase
+
+        // Sample pegawai untuk demo (tambahkan data pegawai sebenarnya via Firebase)
+        const demoPegawai = {
+            "12345": {
+                npp: "12345",
+                nama: "Muhammad Yuzar",
+                jabatan: "Analis Pengembangan Change Management Office",
+                posisi: "Analis",
+                unit_kerja: "KP - SIMO CMO",
+                level: "L2",
+                lokasi: "Kantor Pusat"
+            },
+            "67890": {
+                npp: "67890",
+                nama: "Ahmad Fauzi",
+                jabatan: "Pemimpin Departemen Change Management Office",
+                posisi: "PimDep",
+                unit_kerja: "KP - SIMO",
+                level: "L3",
+                lokasi: "Kantor Pusat"
+            }
+        };
+
+        // Function to get modul for jabatan from embedded data
+        function getModulForJabatanFromData(jabatanNama) {
+            // Find jabatan in JABATAN_DATA
+            const jabatan = JABATAN_DATA.find(j => 
+                j.nama_jabatan.toLowerCase().includes(jabatanNama.toLowerCase()) ||
+                jabatanNama.toLowerCase().includes(j.nama_jabatan.toLowerCase())
+            );
+            
+            if (!jabatan) {
+                console.log("Jabatan tidak ditemukan:", jabatanNama);
+                return { soft: [], tech: [] };
+            }
+            
+            console.log("Found jabatan:", jabatan.nama_jabatan);
+            
+            // Get soft modules
+            const softModules = [];
+            const softWajib = jabatan.modul_soft_wajib || [];
+            const softOpsional = jabatan.modul_soft_opsional || [];
+            
+            softWajib.forEach(kode => {
+                const modul = MODUL_DATA.find(m => m.kode === kode || m.kode_full === kode);
+                if (modul) {
+                    softModules.push({
+                        kode: modul.kode,
+                        nama: modul.nama,
+                        tingkatan: modul.tingkatan,
+                        kategori: modul.kategori,
+                        required: true
+                    });
+                }
+            });
+            
+            softOpsional.forEach(kode => {
+                const modul = MODUL_DATA.find(m => m.kode === kode || m.kode_full === kode);
+                if (modul) {
+                    softModules.push({
+                        kode: modul.kode,
+                        nama: modul.nama,
+                        tingkatan: modul.tingkatan,
+                        kategori: modul.kategori,
+                        required: false
+                    });
+                }
+            });
+            
+            // Get tech modules
+            const techModules = [];
+            const techWajib = jabatan.modul_tech_wajib || [];
+            const techOpsional = jabatan.modul_tech_opsional || [];
+            
+            techWajib.forEach(kode => {
+                const modul = MODUL_DATA.find(m => m.kode === kode || m.kode_full?.includes(kode));
+                if (modul) {
+                    techModules.push({
+                        kode: modul.kode,
+                        nama: modul.nama,
+                        tingkatan: modul.tingkatan,
+                        kategori: modul.kategori,
+                        required: true
+                    });
+                }
+            });
+            
+            techOpsional.forEach(kode => {
+                const modul = MODUL_DATA.find(m => m.kode === kode || m.kode_full?.includes(kode));
+                if (modul) {
+                    techModules.push({
+                        kode: modul.kode,
+                        nama: modul.nama,
+                        tingkatan: modul.tingkatan,
+                        kategori: modul.kategori,
+                        required: false
+                    });
+                }
+            });
+            
+            return { soft: softModules, tech: techModules };
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function showLoading(message = "Memuat data...") {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            document.querySelector('.loading-text').textContent = message;
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-exclamation-circle'} toast-icon"></i>
+                <span class="toast-message">${message}</span>
+                <button class="toast-close" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        function showAlert(message, type = 'danger') {
+            const container = document.getElementById('alertContainer');
+            container.innerHTML = `
+                <div class="alert alert-${type}">
+                    <i class="fas ${type === 'danger' ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+                    ${message}
+                </div>
+            `;
+        }
+
+        function clearAlert() {
+            document.getElementById('alertContainer').innerHTML = '';
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        }
+
+        // ===== LOGIN FUNCTIONS =====
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const npp = document.getElementById('nppInput').value.trim();
+            
+            if (!npp) {
+                showAlert('NPP tidak boleh kosong');
+                return;
+            }
+
+            const btn = document.getElementById('btnLogin');
+            btn.classList.add('loading');
+            clearAlert();
+
+            try {
+                let userData;
+                
+                if (DEMO_MODE) {
+                    // Demo mode - gunakan data demo
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    userData = demoPegawai[npp];
+                } else {
+                    // Production mode - ambil dari Firebase
+                    const doc = await db.collection('pegawai').doc(npp).get();
+                    if (doc.exists) {
+                        userData = doc.data();
+                    } else {
+                        // Fallback ke demo data jika belum ada di Firebase
+                        userData = demoPegawai[npp];
+                        if (userData) {
+                            console.log("NPP tidak ditemukan di Firebase, menggunakan data demo");
+                        }
+                    }
+                }
+
+                if (userData) {
+                    currentUser = userData;
+                    localStorage.setItem('tna_user', JSON.stringify(userData));
+                    showAppPage();
+                } else {
+                    showAlert('NPP tidak ditemukan. Silakan hubungi Admin HC.');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('Terjadi kesalahan. Silakan coba lagi.');
+            } finally {
+                btn.classList.remove('loading');
+            }
+        });
+
+        function logout() {
+            currentUser = null;
+            selectedModules.clear();
+            localStorage.removeItem('tna_user');
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('appPage').style.display = 'none';
+            document.getElementById('nppInput').value = '';
+        }
+
+        // ===== APP FUNCTIONS =====
+        async function showAppPage() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appPage').style.display = 'block';
+            
+            showLoading('Memuat data pegawai...');
+            
+            // Update profile info
+            updateProfileUI();
+            
+            // Load modules for this user
+            await loadUserModules();
+            
+            // Load previous submission if exists
+            await loadPreviousSubmission();
+            
+            hideLoading();
+        }
+
+        function updateProfileUI() {
+            document.getElementById('headerName').textContent = currentUser.nama;
+            document.getElementById('headerJabatan').textContent = currentUser.jabatan;
+            
+            document.getElementById('profileAvatar').textContent = getInitials(currentUser.nama);
+            document.getElementById('profileName').textContent = currentUser.nama;
+            document.getElementById('profileNPP').textContent = currentUser.npp;
+            document.getElementById('profileJabatan').textContent = currentUser.jabatan;
+            document.getElementById('profilePosisi').textContent = currentUser.posisi;
+            document.getElementById('profileUnitKerja').textContent = currentUser.unit_kerja;
+            document.getElementById('profileLevel').textContent = currentUser.level;
+        }
+
+        async function loadUserModules() {
+            showLoading('Memuat modul pelatihan...');
+            
+            try {
+                // Get modules based on user's jabatan from embedded data
+                const modulForJabatan = getModulForJabatanFromData(currentUser.jabatan);
+                
+                if (modulForJabatan.soft.length > 0 || modulForJabatan.tech.length > 0) {
+                    // Use modul from jabatan mapping
+                    allModules.soft = modulForJabatan.soft;
+                    allModules.tech = modulForJabatan.tech;
+                    console.log(`Loaded ${allModules.soft.length} soft + ${allModules.tech.length} tech modul for ${currentUser.jabatan}`);
+                } else {
+                    // Fallback: show all soft modul if jabatan not found
+                    console.log("Jabatan tidak ditemukan di matrix, menampilkan semua modul soft");
+                    allModules.soft = MODUL_DATA.filter(m => m.jenis === 'soft').map(m => ({
+                        kode: m.kode,
+                        nama: m.nama,
+                        tingkatan: m.tingkatan,
+                        kategori: m.kategori,
+                        required: false
+                    }));
+                    allModules.tech = [];
+                }
+
+                renderModules();
+                updateStats();
+                
+            } catch (error) {
+                console.error('Error loading modules:', error);
+                showToast('Gagal memuat modul. Silakan refresh halaman.', 'error');
+            }
+        }
+
+        async function loadPreviousSubmission() {
+            try {
+                if (DEMO_MODE) {
+                    // Check localStorage for demo
+                    const saved = localStorage.getItem(`tna_submission_${currentUser.npp}`);
+                    if (saved) {
+                        submissionData = JSON.parse(saved);
+                        submissionData.selectedModules.forEach(kode => selectedModules.add(kode));
+                        updateModuleUI();
+                        updateStatusBadge('draft');
+                        showToast('Data TNA sebelumnya berhasil dimuat', 'success');
+                    }
+                } else {
+                    // Production - Load from Firebase
+                    const doc = await db.collection('submissions')
+                        .doc(`${currentUser.npp}_2026`)
+                        .get();
+                    
+                    if (doc.exists) {
+                        submissionData = doc.data();
+                        submissionData.selectedModules.forEach(kode => selectedModules.add(kode));
+                        updateModuleUI();
+                        updateStatusBadge(submissionData.status);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading submission:', error);
+            }
+        }
+
+        function renderModules() {
+            renderModuleList('soft', allModules.soft, 'softModulesContainer');
+            renderModuleList('tech', allModules.tech, 'techModulesContainer');
+            
+            document.getElementById('softCount').textContent = allModules.soft.length;
+            document.getElementById('techCount').textContent = allModules.tech.length;
+        }
+
+        function renderModuleList(type, modules, containerId) {
+            const container = document.getElementById(containerId);
+            
+            if (modules.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h4>Tidak Ada Modul</h4>
+                        <p>Tidak ada modul ${type === 'soft' ? 'soft competencies' : 'technical competencies'} untuk jabatan Anda.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group by category
+            const grouped = {};
+            modules.forEach(mod => {
+                const cat = mod.kategori || 'Lainnya';
+                if (!grouped[cat]) grouped[cat] = [];
+                grouped[cat].push(mod);
+            });
+
+            let html = '';
+            for (const [category, mods] of Object.entries(grouped)) {
+                html += `
+                    <div class="category-section" data-category="${category}">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas ${type === 'soft' ? 'fa-brain' : 'fa-tools'}"></i>
+                            </div>
+                            <span class="category-title">${category}</span>
+                            <span class="category-count">${mods.length} modul</span>
+                        </div>
+                        <div class="modules-grid">
+                            ${mods.map(mod => createModuleCard(mod)).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+
+            // Add click handlers
+            container.querySelectorAll('.module-card').forEach(card => {
+                card.addEventListener('click', () => toggleModule(card.dataset.kode));
+            });
+        }
+
+        function createModuleCard(mod) {
+            const isSelected = selectedModules.has(mod.kode);
+            const tingkatanClass = mod.tingkatan.toLowerCase();
+            
+            return `
+                <div class="module-card ${isSelected ? 'selected' : ''} ${mod.required ? 'required' : ''}" 
+                     data-kode="${mod.kode}" 
+                     data-required="${mod.required}"
+                     data-tingkatan="${mod.tingkatan}">
+                    <div class="module-header">
+                        <div class="module-checkbox">
+                            ${isSelected ? '<i class="fas fa-check"></i>' : ''}
+                        </div>
+                        <div class="module-info">
+                            <div class="module-code">${mod.kode}</div>
+                            <div class="module-name">${mod.nama}</div>
+                        </div>
+                    </div>
+                    <div class="module-meta">
+                        <span class="module-badge ${tingkatanClass}">${mod.tingkatan}</span>
+                        <span class="module-badge ${mod.required ? 'required' : 'optional'}">
+                            ${mod.required ? '<i class="fas fa-star"></i> Wajib' : 'Opsional'}
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleModule(kode) {
+            if (selectedModules.has(kode)) {
+                selectedModules.delete(kode);
+            } else {
+                selectedModules.add(kode);
+            }
+            
+            updateModuleUI();
+            updateStats();
+            autoSave();
+        }
+
+        function updateModuleUI() {
+            document.querySelectorAll('.module-card').forEach(card => {
+                const kode = card.dataset.kode;
+                const isSelected = selectedModules.has(kode);
+                
+                card.classList.toggle('selected', isSelected);
+                card.querySelector('.module-checkbox').innerHTML = isSelected ? '<i class="fas fa-check"></i>' : '';
+            });
+        }
+
+        function updateStats() {
+            const total = allModules.soft.length + allModules.tech.length;
+            const completed = selectedModules.size;
+            const pending = total - completed;
+            const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statCompleted').textContent = completed;
+            document.getElementById('statPending').textContent = pending;
+            document.getElementById('statProgress').textContent = progress + '%';
+            
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${completed} / ${total} modul dipilih`;
+        }
+
+        function updateStatusBadge(status) {
+            const badge = document.getElementById('statusBadge');
+            badge.className = 'status-badge ' + status;
+            
+            const labels = {
+                'not-started': '<i class="fas fa-clock"></i> Belum Diisi',
+                'draft': '<i class="fas fa-edit"></i> Draft',
+                'submitted': '<i class="fas fa-check-circle"></i> Sudah Submit'
+            };
+            
+            badge.innerHTML = labels[status] || labels['not-started'];
+        }
+
+        // ===== AUTO SAVE =====
+        let autoSaveTimeout;
+        function autoSave() {
+            clearTimeout(autoSaveTimeout);
+            autoSaveTimeout = setTimeout(async () => {
+                await saveToStorage('draft');
+            }, 2000);
+        }
+
+        async function saveToStorage(status = 'draft') {
+            const data = {
+                npp: currentUser.npp,
+                nama: currentUser.nama,
+                jabatan: currentUser.jabatan,
+                unit_kerja: currentUser.unit_kerja,
+                level: currentUser.level,
+                selectedModules: Array.from(selectedModules),
+                status: status,
+                updated_at: new Date().toISOString(),
+                periode: '2026'
+            };
+
+            try {
+                if (DEMO_MODE) {
+                    localStorage.setItem(`tna_submission_${currentUser.npp}`, JSON.stringify(data));
+                } else {
+                    await db.collection('submissions')
+                        .doc(`${currentUser.npp}_2026`)
+                        .set(data, { merge: true });
+                }
+                
+                if (status === 'draft') {
+                    updateStatusBadge('draft');
+                }
+            } catch (error) {
+                console.error('Auto save error:', error);
+            }
+        }
+
+        // ===== SUBMIT TNA =====
+        async function submitTNA() {
+            const btn = document.getElementById('btnSubmit');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+            try {
+                await saveToStorage('submitted');
+                updateStatusBadge('submitted');
+                showToast('Data TNA berhasil disimpan!', 'success');
+            } catch (error) {
+                console.error('Submit error:', error);
+                showToast('Gagal menyimpan data. Silakan coba lagi.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Simpan TNA';
+            }
+        }
+
+        // ===== EXPORT PDF =====
+        function exportPDF() {
+            showToast('Fitur export PDF akan segera tersedia', 'warning');
+            // Implement PDF export using jsPDF or similar library
+        }
+
+        // ===== TABS =====
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById('tab' + btn.dataset.tab.charAt(0).toUpperCase() + btn.dataset.tab.slice(1)).classList.add('active');
+            });
+        });
+
+        // ===== SEARCH & FILTER =====
+        document.getElementById('searchModule').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            
+            document.querySelectorAll('.module-card').forEach(card => {
+                const kode = card.dataset.kode.toLowerCase();
+                const nama = card.querySelector('.module-name').textContent.toLowerCase();
+                const match = kode.includes(query) || nama.includes(query);
+                card.style.display = match ? '' : 'none';
+            });
+
+            // Hide empty categories
+            document.querySelectorAll('.category-section').forEach(section => {
+                const visibleCards = section.querySelectorAll('.module-card:not([style*="display: none"])').length;
+                section.style.display = visibleCards > 0 ? '' : 'none';
+            });
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                document.querySelectorAll('.module-card').forEach(card => {
+                    const isRequired = card.dataset.required === 'true';
+                    const isSelected = card.classList.contains('selected');
+                    
+                    let show = true;
+                    switch(filter) {
+                        case 'required': show = isRequired; break;
+                        case 'optional': show = !isRequired; break;
+                        case 'selected': show = isSelected; break;
+                        case 'unselected': show = !isSelected; break;
+                    }
+                    
+                    card.style.display = show ? '' : 'none';
+                });
+
+                // Hide empty categories
+                document.querySelectorAll('.category-section').forEach(section => {
+                    const visibleCards = section.querySelectorAll('.module-card:not([style*="display: none"])').length;
+                    section.style.display = visibleCards > 0 ? '' : 'none';
+                });
+            });
+        });
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for saved session
+            const savedUser = localStorage.getItem('tna_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showAppPage();
+            }
+        });
+    </script>
+</body>
+</html>
