@@ -18,168 +18,40 @@
             --primary: #0A4D8C;
             --primary-dark: #063A6A;
             --primary-light: #1E6FBA;
+            --primary-bg: #E8F4FC;
             --secondary: #D4A84B;
             --success: #10B981;
+            --success-bg: #D1FAE5;
             --warning: #F59E0B;
+            --warning-bg: #FEF3C7;
             --danger: #EF4444;
+            --danger-bg: #FEE2E2;
+            --purple: #8B5CF6;
+            --purple-bg: #EDE9FE;
             --dark: #1A1A2E;
+            --gray-50: #F8FAFC;
             --gray-100: #F1F5F9;
             --gray-200: #E2E8F0;
             --gray-300: #CBD5E1;
+            --gray-400: #94A3B8;
             --gray-500: #64748B;
             --gray-600: #475569;
+            --gray-700: #334155;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--gray-100);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
             min-height: 100vh;
+            color: var(--gray-700);
         }
         
-        /* Login Page */
-        .login-page {
-            min-height: 100vh;
-            display: flex;
-        }
-        
-        .login-left {
-            flex: 1;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 3rem;
-            color: white;
-        }
-        
-        .login-left img {
-            width: 120px;
-            margin-bottom: 2rem;
-            background: white;
-            padding: 15px;
-            border-radius: 20px;
-        }
-        
-        .login-left h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .login-left p {
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-        
-        .login-right {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 3rem;
-        }
-        
-        .login-form {
-            width: 100%;
-            max-width: 400px;
-        }
-        
-        .login-form h2 {
-            font-size: 1.75rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-        
-        .login-form .subtitle {
-            color: var(--gray-500);
-            margin-bottom: 2rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(10, 77, 140, 0.1);
-        }
-        
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-            width: 100%;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(10, 77, 140, 0.3);
-        }
-        
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-        
-        .btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .alert {
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .alert-danger {
-            background: #FEF2F2;
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-        
-        /* App Page */
-        .app-page {
-            display: none;
-        }
-        
+        /* Header */
         .header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
@@ -187,6 +59,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: var(--shadow-lg);
         }
         
         .header-left {
@@ -195,282 +68,476 @@
             gap: 1rem;
         }
         
-        .header img {
-            width: 45px;
+        .header-left img {
             height: 45px;
+            border-radius: 8px;
             background: white;
-            padding: 5px;
-            border-radius: 10px;
+            padding: 4px;
         }
         
-        .header h1 {
+        .header-left h1 {
             font-size: 1.25rem;
+            font-weight: 700;
         }
         
-        .header p {
-            font-size: 0.85rem;
+        .header-left p {
+            font-size: 0.8rem;
             opacity: 0.9;
         }
         
         .btn-logout {
             background: rgba(255,255,255,0.15);
             color: white;
-            border: none;
+            border: 1px solid rgba(255,255,255,0.3);
             padding: 0.5rem 1rem;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.2s;
         }
         
         .btn-logout:hover {
             background: rgba(255,255,255,0.25);
         }
         
-        .container {
+        /* Main Container */
+        .main-container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 2rem;
         }
         
-        /* Profile Card */
-        .profile-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .avatar {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .profile-info h3 {
-            font-size: 1.25rem;
-            color: var(--dark);
-            margin-bottom: 0.25rem;
-        }
-        
-        .profile-info p {
-            color: var(--gray-500);
-            font-size: 0.9rem;
-        }
-        
-        .profile-info .jabatan {
-            color: var(--primary);
-            font-weight: 500;
-        }
-        
-        .status-badge {
-            margin-left: auto;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        
-        .status-draft { background: #FFFBEB; color: var(--warning); }
-        .status-submitted { background: #ECFDF5; color: var(--success); }
-        
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 0.5rem;
+        /* Title Section */
+        .title-section {
+            text-align: center;
             margin-bottom: 1.5rem;
         }
         
-        .tab {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--gray-500);
-            transition: all 0.2s;
-        }
-        
-        .tab:hover {
-            background: var(--gray-100);
-        }
-        
-        .tab.active {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .tab .count {
-            background: var(--gray-200);
-            color: var(--gray-600);
-            padding: 0.15rem 0.5rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
-        }
-        
-        .tab.active .count {
-            background: rgba(255,255,255,0.2);
-            color: white;
-        }
-        
-        /* Module Cards */
-        .module-list {
-            display: grid;
-            gap: 1rem;
-        }
-        
-        .module-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.25rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-        
-        .module-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .module-card.selected {
-            border-color: var(--success);
-            background: #F0FDF4;
-        }
-        
-        .module-card .checkbox {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--gray-300);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.2s;
-        }
-        
-        .module-card.selected .checkbox {
-            background: var(--success);
-            border-color: var(--success);
-            color: white;
-        }
-        
-        .module-card .content {
-            flex: 1;
-        }
-        
-        .module-card .kode {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.25rem;
-        }
-        
-        .module-card .nama {
-            font-weight: 500;
+        .title-section h2 {
+            font-size: 1.75rem;
             color: var(--dark);
             margin-bottom: 0.5rem;
         }
         
-        .module-card .meta {
+        /* Info Box */
+        .info-box {
+            background: var(--primary-bg);
+            border-left: 4px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
             display: flex;
             gap: 0.75rem;
-            font-size: 0.8rem;
+            align-items: flex-start;
         }
         
-        .module-card .meta span {
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-        }
-        
-        .module-card .wajib {
-            background: #FEF2F2;
-            color: var(--danger);
-        }
-        
-        .module-card .opsional {
-            background: #EBF5FF;
+        .info-box i {
             color: var(--primary);
-        }
-        
-        .pill-basic { background: #EBF5FF; color: #3B82F6; }
-        .pill-intermediate { background: #FFFBEB; color: #F59E0B; }
-        .pill-advance { background: #ECFDF5; color: #10B981; }
-        
-        /* Summary & Submit */
-        .summary-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        
-        .summary-card h3 {
             font-size: 1.1rem;
-            color: var(--dark);
+            margin-top: 2px;
+        }
+        
+        .info-box p {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        
+        /* Card */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        /* Form */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
             margin-bottom: 1rem;
         }
         
-        .summary-stats {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
+        .form-group {
+            margin-bottom: 1rem;
         }
         
-        .summary-stat {
-            text-align: center;
-        }
-        
-        .summary-stat .number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .summary-stat .label {
+        .form-group label {
+            display: block;
             font-size: 0.85rem;
-            color: var(--gray-500);
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
         }
         
-        /* Tab Content */
-        .tab-content {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 77, 140, 0.1);
+        }
+        
+        .form-group input:disabled,
+        .form-group select:disabled {
+            background: var(--gray-100);
+            cursor: not-allowed;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-group .display-value {
+            padding: 0.75rem 1rem;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            min-height: 44px;
+        }
+        
+        /* Autocomplete */
+        .autocomplete-wrapper {
+            position: relative;
+        }
+        
+        .autocomplete-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
             display: none;
         }
         
-        .tab-content.active {
+        .autocomplete-results.show {
             display: block;
         }
         
-        /* Loading */
-        .loading {
+        .autocomplete-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid var(--gray-100);
+            transition: background 0.15s;
+        }
+        
+        .autocomplete-item:hover {
+            background: var(--primary-bg);
+        }
+        
+        .autocomplete-item .name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .autocomplete-item .info {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+        
+        /* Modul Section */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 3rem;
+            gap: 0.5rem;
+        }
+        
+        .modul-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .modul-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Modul Detail Box */
+        .modul-detail-box {
+            background: var(--gray-50);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .modul-detail-box.show {
+            display: block;
+        }
+        
+        .modul-detail-box h4 {
+            font-size: 1rem;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+        }
+        
+        .modul-detail-box ul {
+            margin-left: 1.25rem;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        /* Button */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-add {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #047857 0%, var(--success) 100%);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .btn-add:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Daftar Modul Dipilih */
+        .selected-modul-list {
+            margin-top: 1rem;
+        }
+        
+        .selected-modul-item {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .selected-modul-item .modul-info {
+            flex: 1;
+        }
+        
+        .selected-modul-item .modul-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+        
+        .selected-modul-item .modul-meta {
+            font-size: 0.8rem;
             color: var(--gray-500);
         }
         
-        .loading i {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        .selected-modul-item .modul-alasan {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--gray-100);
+        }
+        
+        .btn-remove {
+            background: var(--danger-bg);
+            color: var(--danger);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .btn-remove:hover {
+            background: var(--danger);
+            color: white;
+        }
+        
+        /* Pills/Badges */
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .pill-primary {
+            background: var(--primary-bg);
+            color: var(--primary);
+        }
+        
+        .pill-success {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+        
+        .pill-warning {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+        
+        .pill-purple {
+            background: var(--purple-bg);
+            color: var(--purple);
+        }
+        
+        /* Summary Card */
+        .summary-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .summary-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .summary-info p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            color: white;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .toast-success { background: var(--success); }
+        .toast-error { background: var(--danger); }
+        .toast-warning { background: var(--warning); }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
             animation: spin 1s linear infinite;
         }
         
@@ -478,10 +545,16 @@
             to { transform: rotate(360deg); }
         }
         
+        .loading-text {
+            margin-top: 1rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+        
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 3rem;
+            padding: 2rem;
             color: var(--gray-500);
         }
         
@@ -491,162 +564,243 @@
             opacity: 0.5;
         }
         
-        /* Toast */
-        .toast-container {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 9999;
-        }
-        
-        .toast {
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            margin-bottom: 0.5rem;
+        /* Login Page */
+        .login-page {
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            animation: slideIn 0.3s ease;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         }
         
-        .toast.success { border-left: 4px solid var(--success); }
-        .toast.error { border-left: 4px solid var(--danger); }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .login-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
         }
         
-        @media (max-width: 768px) {
-            .login-page { flex-direction: column; }
-            .login-left { padding: 2rem; }
-            .login-left h1 { font-size: 1.75rem; }
-            .profile-card { flex-direction: column; text-align: center; }
-            .status-badge { margin: 1rem auto 0; }
-            .tabs { flex-wrap: wrap; }
-            .summary-stats { flex-wrap: wrap; justify-content: center; }
+        .login-card img {
+            height: 60px;
+            margin-bottom: 1.5rem;
         }
+        
+        .login-card h1 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-card p {
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+        
+        .login-card .form-group {
+            text-align: left;
+        }
+        
+        .login-card .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
-    <div class="toast-container" id="toastContainer"></div>
-    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Memuat data...</p>
+    </div>
+
     <!-- Login Page -->
     <div class="login-page" id="loginPage">
-        <div class="login-left">
+        <div class="login-card">
             <img src="./logo.png" alt="Bank Sulselbar">
-            <h1>TNA 2026</h1>
-            <p>Training Need Analysis</p>
-        </div>
-        <div class="login-right">
-            <div class="login-form">
-                <h2>Selamat Datang</h2>
-                <p class="subtitle">Silakan login dengan NPP Anda</p>
-                
-                <div id="alertContainer"></div>
-                
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label>Nomor Pokok Pegawai (NPP)</label>
-                        <input type="text" id="nppInput" placeholder="Masukkan NPP Anda" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="btnLogin">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </button>
-                </form>
-            </div>
+            <h1>Training Needs Analysis</h1>
+            <p>Silakan masuk dengan NPP Anda untuk melanjutkan</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Nomor Pokok Pegawai (NPP)</label>
+                    <input type="text" id="loginNPP" placeholder="Contoh: 8005538" required>
+                    <small style="color: var(--gray-500); font-size: 0.8rem;">Format NPP lengkap (7-8 digit)</small>
+                </div>
+                <div id="loginAlert" style="margin-bottom: 1rem;"></div>
+                <button type="submit" class="btn btn-primary" id="btnLogin">
+                    <i class="fas fa-sign-in-alt"></i> Masuk
+                </button>
+            </form>
         </div>
     </div>
-    
-    <!-- App Page -->
-    <div class="app-page" id="appPage">
+
+    <!-- Main App -->
+    <div class="app-page hidden" id="appPage">
+        <!-- Header -->
         <header class="header">
             <div class="header-left">
                 <img src="./logo.png" alt="Bank Sulselbar">
                 <div>
                     <h1>TNA 2026</h1>
-                    <p id="headerInfo">Training Need Analysis</p>
+                    <p>Training Needs Analysis</p>
                 </div>
             </div>
             <button class="btn-logout" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-sign-out-alt"></i> Keluar
             </button>
         </header>
-        
-        <div class="container">
-            <!-- Profile Card -->
-            <div class="profile-card">
-                <div class="avatar" id="userAvatar">YZ</div>
-                <div class="profile-info">
-                    <h3 id="userName">-</h3>
-                    <p>NPP: <span id="userNPP">-</span></p>
-                    <p class="jabatan" id="userJabatan">-</p>
-                    <p id="userUnit">-</p>
+
+        <!-- Main Content -->
+        <div class="main-container">
+            <!-- Title -->
+            <div class="title-section">
+                <h2>Training Needs Analysis (TNA) 2026</h2>
+            </div>
+
+            <!-- Info Box -->
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <p>TNA merupakan metode validasi untuk memetakan kebutuhan pendidikan Anda. Pastikan pengisian dilakukan dengan saksama dan telah dikoordinasikan dengan pimpinan Anda. Hasil TNA selanjutnya akan dievaluasi secara kolektif oleh divisi terkait sebagai dasar penentuan prioritas pelatihan.</p>
+            </div>
+
+            <!-- Data Pegawai Card -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user"></i> Data Pegawai
                 </div>
-                <span class="status-badge status-draft" id="statusBadge">
-                    <i class="fas fa-clock"></i> Belum Submit
-                </span>
-            </div>
-            
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('soft')">
-                    <i class="fas fa-brain"></i> Soft Competency
-                    <span class="count" id="softCount">0</span>
-                </button>
-                <button class="tab" onclick="showTab('tech')">
-                    <i class="fas fa-cogs"></i> Technical Competency
-                    <span class="count" id="techCount">0</span>
-                </button>
-            </div>
-            
-            <!-- Tab Contents -->
-            <div id="tabSoft" class="tab-content active">
-                <div class="module-list" id="softModules">
-                    <div class="loading">
-                        <i class="fas fa-spinner"></i>
-                        <p>Memuat modul...</p>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group autocomplete-wrapper">
+                            <label>Cari Nama Pegawai</label>
+                            <input type="text" id="searchNama" placeholder="Ketik nama Anda..." autocomplete="off">
+                            <div class="autocomplete-results" id="autocompleteResults"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>NPP</label>
+                            <div class="display-value" id="displayNPP">-</div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            
-            <div id="tabTech" class="tab-content">
-                <div class="module-list" id="techModules">
-                    <div class="loading">
-                        <i class="fas fa-spinner"></i>
-                        <p>Memuat modul...</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Jabatan</label>
+                            <div class="display-value" id="displayJabatan">-</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Kerja</label>
+                            <div class="display-value" id="displayUnit">-</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Summary & Submit -->
-            <div class="summary-card">
-                <h3><i class="fas fa-chart-pie"></i> Ringkasan Pilihan</h3>
-                <div class="summary-stats">
-                    <div class="summary-stat">
-                        <div class="number" id="selectedSoft">0</div>
-                        <div class="label">Soft Competency</div>
+
+            <!-- Pilih Modul Card -->
+            <div class="card" id="modulCard" style="display: none;">
+                <div class="card-header">
+                    <i class="fas fa-book"></i> Pilih Modul & Detail Pelaksanaan
+                </div>
+                <div class="card-body">
+                    <!-- Modul Selection -->
+                    <div class="modul-grid">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Modul Kompetensi</label>
+                            <select id="selectModul">
+                                <option value="">-- Pilih Modul --</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Jenis Kategori</label>
+                            <select id="selectKategori">
+                                <option value="Pelatihan">1. Pelatihan</option>
+                                <option value="Sertifikasi">2. Sertifikasi</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Rekomendasi Pelaksanaan</label>
+                            <select id="selectRekomendasi">
+                                <option value="Internal">Internal</option>
+                                <option value="Eksternal">Eksternal</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Bulan Pelaksanaan</label>
+                            <select id="selectBulan">
+                                <option value="Januari">Januari</option>
+                                <option value="Februari">Februari</option>
+                                <option value="Maret">Maret</option>
+                                <option value="April">April</option>
+                                <option value="Mei">Mei</option>
+                                <option value="Juni">Juni</option>
+                                <option value="Juli">Juli</option>
+                                <option value="Agustus">Agustus</option>
+                                <option value="September">September</option>
+                                <option value="Oktober">Oktober</option>
+                                <option value="November">November</option>
+                                <option value="Desember">Desember</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="summary-stat">
-                        <div class="number" id="selectedTech">0</div>
-                        <div class="label">Technical Competency</div>
+
+                    <!-- Modul Detail Box -->
+                    <div class="modul-detail-box" id="modulDetailBox">
+                        <h4 id="modulDetailTitle">Nama Modul</h4>
+                        <ul id="modulDetailList"></ul>
                     </div>
-                    <div class="summary-stat">
-                        <div class="number" id="selectedTotal">0</div>
-                        <div class="label">Total Modul</div>
+
+                    <!-- Alasan -->
+                    <div class="form-group">
+                        <label>Alasan Memilih Modul Ini</label>
+                        <textarea id="inputAlasan" placeholder="Jelaskan kondisi spesifik mengapa Anda membutuhkan pelatihan ini..."></textarea>
+                    </div>
+
+                    <!-- Referensi -->
+                    <div class="form-group">
+                        <label>Referensi Judul Pelatihan</label>
+                        <textarea id="inputReferensi" placeholder="Jika tidak ada, isi 'tidak ada'."></textarea>
+                    </div>
+
+                    <!-- Add Button -->
+                    <button class="btn btn-add" id="btnTambahModul" onclick="tambahModul()">
+                        <i class="fas fa-plus-circle"></i> Tambah Modul ke Daftar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Daftar Modul Dipilih -->
+            <div class="card" id="daftarCard" style="display: none;">
+                <div class="card-header">
+                    <i class="fas fa-list-check"></i> Daftar Modul Dipilih
+                </div>
+                <div class="card-body">
+                    <div class="selected-modul-list" id="selectedModulList">
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>Belum ada modul yang dipilih</p>
+                        </div>
+                    </div>
+
+                    <!-- Summary & Submit -->
+                    <div class="summary-card" id="summaryCard" style="display: none;">
+                        <div class="summary-info">
+                            <h3><span id="totalModul">0</span> Modul Dipilih</h3>
+                            <p>Siap untuk disubmit</p>
+                        </div>
+                        <button class="btn btn-success" onclick="submitTNA()">
+                            <i class="fas fa-paper-plane"></i> Submit TNA
+                        </button>
                     </div>
                 </div>
-                <button class="btn btn-success" onclick="submitTNA()" id="btnSubmit">
-                    <i class="fas fa-paper-plane"></i> Simpan TNA
-                </button>
             </div>
         </div>
     </div>
 
     <script>
-        // ===== FIREBASE CONFIG =====
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyBiwuLzJ8lVBsP9UJ4w6HU2JevCF7K8NNk",
             authDomain: "tnahumancapital.firebaseapp.com",
@@ -658,340 +812,487 @@
         
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        
-        // ===== STATE =====
+
+        // Global State
+        let allPegawai = [];
+        let allModul = [];
+        let allJabatan = [];
         let currentUser = null;
         let currentJabatan = null;
-        let modulSoft = [];
-        let modulTech = [];
-        let selectedModules = new Set();
-        
-        // ===== TOAST =====
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `
-                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-                <span>${message}</span>
-            `;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
+        let availableModul = [];
+        let selectedModulList = [];
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadInitialData();
+            hideLoading();
+        });
+
+        async function loadInitialData() {
+            try {
+                // Load all pegawai
+                const pegawaiSnap = await db.collection('pegawai').get();
+                pegawaiSnap.forEach(doc => {
+                    allPegawai.push({ id: doc.id, ...doc.data() });
+                });
+                console.log('Loaded pegawai:', allPegawai.length);
+
+                // Load all modul
+                const modulSnap = await db.collection('modul').get();
+                modulSnap.forEach(doc => {
+                    allModul.push({ id: doc.id, ...doc.data() });
+                });
+                console.log('Loaded modul:', allModul.length);
+
+                // Load all jabatan
+                const jabatanSnap = await db.collection('jabatan').get();
+                jabatanSnap.forEach(doc => {
+                    allJabatan.push({ id: doc.id, ...doc.data() });
+                });
+                console.log('Loaded jabatan:', allJabatan.length);
+
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showToast('Gagal memuat data. Silakan refresh halaman.', 'error');
+            }
         }
-        
+
         // ===== LOGIN =====
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            const npp = document.getElementById('loginNPP').value.trim();
             
-            const npp = document.getElementById('nppInput').value.trim();
             if (!npp) {
-                showAlert('NPP tidak boleh kosong');
+                showLoginAlert('NPP tidak boleh kosong');
                 return;
             }
+
+            const pegawai = allPegawai.find(p => p.npp === npp || p.id === npp);
             
-            const btn = document.getElementById('btnLogin');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-            
-            try {
-                // Cari pegawai di Firebase
-                const doc = await db.collection('pegawai').doc(npp).get();
-                
-                if (!doc.exists) {
-                    showAlert('NPP tidak ditemukan. Pastikan NPP Anda benar.');
-                    return;
-                }
-                
-                currentUser = { npp: doc.id, ...doc.data() };
-                
-                // Cari jabatan di Firebase untuk mendapatkan modul
-                await loadJabatanAndModul();
-                
-                // Show app
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('appPage').style.display = 'block';
-                
-                // Update UI
-                updateProfileUI();
-                renderModules();
-                
-                // Load previous submission
-                await loadPreviousSubmission();
-                
-            } catch (error) {
-                console.error('Login error:', error);
-                showAlert('Terjadi kesalahan. Silakan coba lagi.');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            if (!pegawai) {
+                showLoginAlert('NPP tidak ditemukan. Pastikan format NPP benar (7-8 digit).');
+                return;
             }
+
+            currentUser = pegawai;
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('appPage').classList.remove('hidden');
+            
+            // Pre-fill data
+            document.getElementById('searchNama').value = pegawai.nama;
+            selectPegawai(pegawai);
         });
-        
-        function showAlert(message) {
-            document.getElementById('alertContainer').innerHTML = `
-                <div class="alert alert-danger">
-                    <i class="fas fa-exclamation-circle"></i>
-                    ${message}
+
+        function showLoginAlert(msg) {
+            document.getElementById('loginAlert').innerHTML = `
+                <div style="background: var(--danger-bg); color: var(--danger); padding: 0.75rem; border-radius: 8px; font-size: 0.9rem;">
+                    <i class="fas fa-exclamation-circle"></i> ${msg}
                 </div>
             `;
         }
-        
+
         function logout() {
             currentUser = null;
             currentJabatan = null;
-            modulSoft = [];
-            modulTech = [];
-            selectedModules.clear();
+            availableModul = [];
+            selectedModulList = [];
             
-            document.getElementById('loginPage').style.display = 'flex';
-            document.getElementById('appPage').style.display = 'none';
-            document.getElementById('nppInput').value = '';
-            document.getElementById('alertContainer').innerHTML = '';
+            document.getElementById('appPage').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('loginNPP').value = '';
+            document.getElementById('loginAlert').innerHTML = '';
+            document.getElementById('searchNama').value = '';
+            document.getElementById('displayNPP').textContent = '-';
+            document.getElementById('displayJabatan').textContent = '-';
+            document.getElementById('displayUnit').textContent = '-';
+            document.getElementById('modulCard').style.display = 'none';
+            document.getElementById('daftarCard').style.display = 'none';
         }
-        
-        // ===== LOAD JABATAN & MODUL =====
-        async function loadJabatanAndModul() {
-            // Cari jabatan berdasarkan nama jabatan pegawai
-            const jabatanQuery = await db.collection('jabatan')
-                .where('nama_jabatan', '==', currentUser.jabatan)
-                .limit(1)
-                .get();
+
+        // ===== AUTOCOMPLETE =====
+        document.getElementById('searchNama').addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            const results = document.getElementById('autocompleteResults');
             
-            if (jabatanQuery.empty) {
-                // Coba cari partial match
-                const allJabatan = await db.collection('jabatan').get();
-                let bestMatch = null;
-                
-                allJabatan.forEach(doc => {
-                    const jab = doc.data();
-                    if (currentUser.jabatan.toLowerCase().includes(jab.nama_jabatan.toLowerCase()) ||
-                        jab.nama_jabatan.toLowerCase().includes(currentUser.jabatan.toLowerCase())) {
-                        bestMatch = { id: doc.id, ...jab };
-                    }
-                });
-                
-                currentJabatan = bestMatch;
-            } else {
-                const doc = jabatanQuery.docs[0];
-                currentJabatan = { id: doc.id, ...doc.data() };
-            }
-            
-            if (!currentJabatan) {
-                console.log('Jabatan tidak ditemukan di matrix TNA');
+            if (query.length < 2) {
+                results.classList.remove('show');
                 return;
             }
-            
-            // Load modul details
-            const softWajib = currentJabatan.modul_soft_wajib || [];
-            const softOpsional = currentJabatan.modul_soft_opsional || [];
-            const techWajib = currentJabatan.modul_tech_wajib || [];
-            const techOpsional = currentJabatan.modul_tech_opsional || [];
-            
-            // Load soft modules
-            modulSoft = [];
-            for (const kode of [...softWajib, ...softOpsional]) {
-                const modDoc = await db.collection('modul').doc(kode).get();
-                if (modDoc.exists) {
-                    modulSoft.push({
-                        kode: modDoc.id,
-                        ...modDoc.data(),
-                        wajib: softWajib.includes(kode)
-                    });
-                }
+
+            const matches = allPegawai.filter(p => 
+                p.nama && p.nama.toLowerCase().includes(query)
+            ).slice(0, 10);
+
+            if (matches.length === 0) {
+                results.innerHTML = '<div class="autocomplete-item"><span class="name">Tidak ditemukan</span></div>';
+            } else {
+                results.innerHTML = matches.map(p => `
+                    <div class="autocomplete-item" onclick="selectPegawaiFromSearch('${p.npp}')">
+                        <div class="name">${p.nama}</div>
+                        <div class="info">NPP: ${p.npp} | ${p.jabatan || '-'}</div>
+                    </div>
+                `).join('');
             }
             
-            // Load tech modules
-            modulTech = [];
-            for (const kode of [...techWajib, ...techOpsional]) {
-                const modDoc = await db.collection('modul').doc(kode).get();
-                if (modDoc.exists) {
-                    modulTech.push({
-                        kode: modDoc.id,
-                        ...modDoc.data(),
-                        wajib: techWajib.includes(kode)
-                    });
-                }
+            results.classList.add('show');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.autocomplete-wrapper')) {
+                document.getElementById('autocompleteResults').classList.remove('show');
+            }
+        });
+
+        function selectPegawaiFromSearch(npp) {
+            const pegawai = allPegawai.find(p => p.npp === npp);
+            if (pegawai) {
+                currentUser = pegawai;
+                document.getElementById('searchNama').value = pegawai.nama;
+                document.getElementById('autocompleteResults').classList.remove('show');
+                selectPegawai(pegawai);
             }
         }
-        
-        // ===== UPDATE UI =====
-        function updateProfileUI() {
-            const initials = currentUser.nama.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-            
-            document.getElementById('userAvatar').textContent = initials;
-            document.getElementById('userName').textContent = currentUser.nama;
-            document.getElementById('userNPP').textContent = currentUser.npp;
-            document.getElementById('userJabatan').textContent = currentUser.jabatan || '-';
-            document.getElementById('userUnit').textContent = currentUser.unit_kerja || '-';
-            document.getElementById('headerInfo').textContent = currentUser.nama;
+
+        function selectPegawai(pegawai) {
+            document.getElementById('displayNPP').textContent = pegawai.npp;
+            document.getElementById('displayJabatan').textContent = pegawai.jabatan || '-';
+            document.getElementById('displayUnit').textContent = pegawai.unit_kerja || '-';
+
+            // Find jabatan and load modul
+            loadJabatanModul(pegawai.jabatan);
         }
-        
-        function renderModules() {
-            // Render Soft
-            const softContainer = document.getElementById('softModules');
-            if (modulSoft.length === 0) {
-                softContainer.innerHTML = `
+
+        // ===== LOAD JABATAN MODUL =====
+        function loadJabatanModul(jabatanName) {
+            if (!jabatanName) {
+                showToast('Jabatan tidak ditemukan', 'warning');
+                return;
+            }
+
+            // Find matching jabatan
+            currentJabatan = allJabatan.find(j => 
+                j.nama_jabatan && j.nama_jabatan.toLowerCase() === jabatanName.toLowerCase()
+            );
+
+            if (!currentJabatan) {
+                // Try partial match
+                currentJabatan = allJabatan.find(j => 
+                    j.nama_jabatan && (
+                        j.nama_jabatan.toLowerCase().includes(jabatanName.toLowerCase()) ||
+                        jabatanName.toLowerCase().includes(j.nama_jabatan.toLowerCase())
+                    )
+                );
+            }
+
+            if (!currentJabatan) {
+                console.log('Jabatan not found:', jabatanName);
+                showToast('Jabatan tidak ditemukan dalam matrix TNA', 'warning');
+                document.getElementById('modulCard').style.display = 'block';
+                document.getElementById('daftarCard').style.display = 'block';
+                
+                // Show all modul as options
+                availableModul = allModul.map(m => ({
+                    ...m,
+                    status: 'opsional'
+                }));
+                populateModulSelect();
+                return;
+            }
+
+            // Collect available modul from jabatan
+            availableModul = [];
+            
+            // Soft skill modul - wajib
+            (currentJabatan.modul_soft_wajib || []).forEach(code => {
+                const modul = allModul.find(m => m.kode === code || m.id === code);
+                if (modul) availableModul.push({ ...modul, status: 'wajib', jenis: 'soft' });
+            });
+            
+            // Soft skill modul - opsional
+            (currentJabatan.modul_soft_opsional || []).forEach(code => {
+                const modul = allModul.find(m => m.kode === code || m.id === code);
+                if (modul) availableModul.push({ ...modul, status: 'opsional', jenis: 'soft' });
+            });
+            
+            // Tech skill modul - wajib
+            (currentJabatan.modul_tech_wajib || []).forEach(code => {
+                const modul = allModul.find(m => m.kode === code || m.id === code);
+                if (modul) availableModul.push({ ...modul, status: 'wajib', jenis: 'technical' });
+            });
+            
+            // Tech skill modul - opsional
+            (currentJabatan.modul_tech_opsional || []).forEach(code => {
+                const modul = allModul.find(m => m.kode === code || m.id === code);
+                if (modul) availableModul.push({ ...modul, status: 'opsional', jenis: 'technical' });
+            });
+
+            console.log('Available modul:', availableModul.length);
+
+            // Show cards
+            document.getElementById('modulCard').style.display = 'block';
+            document.getElementById('daftarCard').style.display = 'block';
+
+            // Populate select
+            populateModulSelect();
+            
+            // Load previous submission
+            loadPreviousSubmission();
+        }
+
+        function populateModulSelect() {
+            const select = document.getElementById('selectModul');
+            
+            // Group by jenis and status
+            const softWajib = availableModul.filter(m => m.jenis === 'soft' && m.status === 'wajib');
+            const softOpsional = availableModul.filter(m => m.jenis === 'soft' && m.status === 'opsional');
+            const techWajib = availableModul.filter(m => m.jenis === 'technical' && m.status === 'wajib');
+            const techOpsional = availableModul.filter(m => m.jenis === 'technical' && m.status === 'opsional');
+
+            let html = '<option value="">-- Pilih Modul --</option>';
+
+            if (softWajib.length > 0) {
+                html += '<optgroup label="🔵 Soft Skill - Wajib">';
+                softWajib.forEach(m => {
+                    html += `<option value="${m.kode}">${m.kode} - ${m.nama}</option>`;
+                });
+                html += '</optgroup>';
+            }
+
+            if (softOpsional.length > 0) {
+                html += '<optgroup label="🔷 Soft Skill - Opsional">';
+                softOpsional.forEach(m => {
+                    html += `<option value="${m.kode}">${m.kode} - ${m.nama}</option>`;
+                });
+                html += '</optgroup>';
+            }
+
+            if (techWajib.length > 0) {
+                html += '<optgroup label="🟢 Technical - Wajib">';
+                techWajib.forEach(m => {
+                    html += `<option value="${m.kode}">${m.kode} - ${m.nama}</option>`;
+                });
+                html += '</optgroup>';
+            }
+
+            if (techOpsional.length > 0) {
+                html += '<optgroup label="🟩 Technical - Opsional">';
+                techOpsional.forEach(m => {
+                    html += `<option value="${m.kode}">${m.kode} - ${m.nama}</option>`;
+                });
+                html += '</optgroup>';
+            }
+
+            select.innerHTML = html;
+        }
+
+        // ===== MODUL DETAIL =====
+        document.getElementById('selectModul').addEventListener('change', function() {
+            const kode = this.value;
+            const detailBox = document.getElementById('modulDetailBox');
+            
+            if (!kode) {
+                detailBox.classList.remove('show');
+                return;
+            }
+
+            const modul = availableModul.find(m => m.kode === kode) || allModul.find(m => m.kode === kode);
+            
+            if (modul) {
+                document.getElementById('modulDetailTitle').textContent = modul.nama;
+                
+                // Parse tujuan into list
+                const tujuan = modul.tujuan || '';
+                const tujuanList = tujuan.split(/\d+\.\s*/).filter(t => t.trim());
+                
+                if (tujuanList.length > 0) {
+                    document.getElementById('modulDetailList').innerHTML = tujuanList.map(t => `<li>${t.trim()}</li>`).join('');
+                } else {
+                    document.getElementById('modulDetailList').innerHTML = `<li>${tujuan || 'Tidak ada deskripsi'}</li>`;
+                }
+                
+                detailBox.classList.add('show');
+            }
+        });
+
+        // ===== TAMBAH MODUL =====
+        function tambahModul() {
+            const kode = document.getElementById('selectModul').value;
+            const kategori = document.getElementById('selectKategori').value;
+            const rekomendasi = document.getElementById('selectRekomendasi').value;
+            const bulan = document.getElementById('selectBulan').value;
+            const alasan = document.getElementById('inputAlasan').value.trim();
+            const referensi = document.getElementById('inputReferensi').value.trim();
+
+            if (!kode) {
+                showToast('Pilih modul terlebih dahulu', 'warning');
+                return;
+            }
+
+            if (!alasan) {
+                showToast('Alasan tidak boleh kosong', 'warning');
+                return;
+            }
+
+            // Check if already added
+            if (selectedModulList.find(m => m.kode === kode)) {
+                showToast('Modul ini sudah ditambahkan', 'warning');
+                return;
+            }
+
+            const modul = availableModul.find(m => m.kode === kode) || allModul.find(m => m.kode === kode);
+
+            selectedModulList.push({
+                kode: kode,
+                nama: modul?.nama || kode,
+                kategori: kategori,
+                rekomendasi: rekomendasi,
+                bulan: bulan,
+                alasan: alasan,
+                referensi: referensi || 'tidak ada',
+                status: modul?.status || 'opsional',
+                jenis: modul?.jenis || 'technical'
+            });
+
+            renderSelectedModul();
+            
+            // Reset form
+            document.getElementById('selectModul').value = '';
+            document.getElementById('inputAlasan').value = '';
+            document.getElementById('inputReferensi').value = '';
+            document.getElementById('modulDetailBox').classList.remove('show');
+
+            showToast('Modul berhasil ditambahkan', 'success');
+        }
+
+        function renderSelectedModul() {
+            const container = document.getElementById('selectedModulList');
+            const summaryCard = document.getElementById('summaryCard');
+
+            if (selectedModulList.length === 0) {
+                container.innerHTML = `
                     <div class="empty-state">
-                        <i class="fas fa-inbox"></i>
-                        <h4>Tidak Ada Modul</h4>
-                        <p>Belum ada modul soft competency untuk jabatan Anda.</p>
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Belum ada modul yang dipilih</p>
                     </div>
                 `;
-            } else {
-                softContainer.innerHTML = modulSoft.map(m => createModuleCard(m, 'soft')).join('');
+                summaryCard.style.display = 'none';
+                return;
             }
-            
-            // Render Tech
-            const techContainer = document.getElementById('techModules');
-            if (modulTech.length === 0) {
-                techContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-inbox"></i>
-                        <h4>Tidak Ada Modul</h4>
-                        <p>Belum ada modul technical competency untuk jabatan Anda.</p>
-                    </div>
-                `;
-            } else {
-                techContainer.innerHTML = modulTech.map(m => createModuleCard(m, 'tech')).join('');
-            }
-            
-            // Update counts
-            document.getElementById('softCount').textContent = modulSoft.length;
-            document.getElementById('techCount').textContent = modulTech.length;
-            
-            updateSummary();
-        }
-        
-        function createModuleCard(modul, type) {
-            const isSelected = selectedModules.has(modul.kode);
-            const tingkatanClass = modul.tingkatan === 'Basic' ? 'pill-basic' : 
-                                   modul.tingkatan === 'Intermediate' ? 'pill-intermediate' : 'pill-advance';
-            
-            return `
-                <div class="module-card ${isSelected ? 'selected' : ''}" 
-                     data-kode="${modul.kode}" data-type="${type}"
-                     onclick="toggleModule('${modul.kode}')">
-                    <div class="checkbox">
-                        ${isSelected ? '<i class="fas fa-check"></i>' : ''}
-                    </div>
-                    <div class="content">
-                        <div class="kode">${modul.kode}</div>
-                        <div class="nama">${modul.nama}</div>
-                        <div class="meta">
-                            <span class="${modul.wajib ? 'wajib' : 'opsional'}">
-                                ${modul.wajib ? 'Wajib' : 'Opsional'}
-                            </span>
-                            <span class="${tingkatanClass}">${modul.tingkatan}</span>
+
+            container.innerHTML = selectedModulList.map((m, idx) => `
+                <div class="selected-modul-item">
+                    <div class="modul-info">
+                        <div class="modul-name">
+                            ${m.nama}
+                            <span class="pill ${m.status === 'wajib' ? 'pill-primary' : 'pill-success'}">${m.status}</span>
+                            <span class="pill pill-purple">${m.jenis}</span>
+                        </div>
+                        <div class="modul-meta">
+                            ${m.kategori} • ${m.rekomendasi} • ${m.bulan}
+                        </div>
+                        <div class="modul-alasan">
+                            <strong>Alasan:</strong> ${m.alasan}
+                            ${m.referensi !== 'tidak ada' ? `<br><strong>Referensi:</strong> ${m.referensi}` : ''}
                         </div>
                     </div>
+                    <button class="btn-remove" onclick="hapusModul(${idx})">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </div>
-            `;
+            `).join('');
+
+            document.getElementById('totalModul').textContent = selectedModulList.length;
+            summaryCard.style.display = 'flex';
         }
-        
-        function toggleModule(kode) {
-            if (selectedModules.has(kode)) {
-                selectedModules.delete(kode);
-            } else {
-                selectedModules.add(kode);
+
+        function hapusModul(idx) {
+            selectedModulList.splice(idx, 1);
+            renderSelectedModul();
+            showToast('Modul dihapus', 'success');
+        }
+
+        // ===== SUBMIT TNA =====
+        async function submitTNA() {
+            if (selectedModulList.length === 0) {
+                showToast('Tambahkan minimal 1 modul', 'warning');
+                return;
             }
-            
-            // Update card UI
-            const card = document.querySelector(`[data-kode="${kode}"]`);
-            if (card) {
-                card.classList.toggle('selected');
-                const checkbox = card.querySelector('.checkbox');
-                checkbox.innerHTML = selectedModules.has(kode) ? '<i class="fas fa-check"></i>' : '';
+
+            if (!currentUser) {
+                showToast('Data pegawai tidak valid', 'error');
+                return;
             }
-            
-            updateSummary();
+
+            showLoading();
+
+            try {
+                const submission = {
+                    npp: currentUser.npp,
+                    nama: currentUser.nama,
+                    jabatan: currentUser.jabatan,
+                    unit_kerja: currentUser.unit_kerja,
+                    modul: selectedModulList,
+                    tahun: 2026,
+                    submitted_at: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: 'submitted'
+                };
+
+                const docId = `${currentUser.npp}_2026`;
+                await db.collection('submissions').doc(docId).set(submission, { merge: true });
+
+                hideLoading();
+                showToast('TNA berhasil disubmit!', 'success');
+
+            } catch (error) {
+                console.error('Submit error:', error);
+                hideLoading();
+                showToast('Gagal submit TNA. Silakan coba lagi.', 'error');
+            }
         }
-        
-        function updateSummary() {
-            const softSelected = [...selectedModules].filter(k => modulSoft.find(m => m.kode === k)).length;
-            const techSelected = [...selectedModules].filter(k => modulTech.find(m => m.kode === k)).length;
-            
-            document.getElementById('selectedSoft').textContent = softSelected;
-            document.getElementById('selectedTech').textContent = techSelected;
-            document.getElementById('selectedTotal').textContent = selectedModules.size;
-        }
-        
-        // ===== TABS =====
-        function showTab(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            event.target.closest('.tab').classList.add('active');
-            document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
-        }
-        
+
         // ===== LOAD PREVIOUS SUBMISSION =====
         async function loadPreviousSubmission() {
+            if (!currentUser) return;
+
             try {
-                const doc = await db.collection('submissions').doc(`${currentUser.npp}_2026`).get();
-                
+                const docId = `${currentUser.npp}_2026`;
+                const doc = await db.collection('submissions').doc(docId).get();
+
                 if (doc.exists) {
                     const data = doc.data();
-                    
-                    // Restore selected modules
-                    if (data.selectedModules) {
-                        data.selectedModules.forEach(kode => selectedModules.add(kode));
+                    if (data.modul && Array.isArray(data.modul)) {
+                        selectedModulList = data.modul;
+                        renderSelectedModul();
+                        showToast('Data TNA sebelumnya berhasil dimuat', 'success');
                     }
-                    
-                    // Update UI
-                    renderModules();
-                    
-                    // Update status badge
-                    const badge = document.getElementById('statusBadge');
-                    if (data.status === 'submitted') {
-                        badge.className = 'status-badge status-submitted';
-                        badge.innerHTML = '<i class="fas fa-check-circle"></i> Sudah Submit';
-                    } else {
-                        badge.className = 'status-badge status-draft';
-                        badge.innerHTML = '<i class="fas fa-clock"></i> Draft';
-                    }
-                    
-                    showToast('Data TNA sebelumnya berhasil dimuat', 'success');
                 }
             } catch (error) {
                 console.error('Load submission error:', error);
             }
         }
-        
-        // ===== SUBMIT TNA =====
-        async function submitTNA() {
-            const btn = document.getElementById('btnSubmit');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-            
-            try {
-                const data = {
-                    npp: currentUser.npp,
-                    nama: currentUser.nama,
-                    jabatan: currentUser.jabatan,
-                    unit_kerja: currentUser.unit_kerja,
-                    selectedModules: Array.from(selectedModules),
-                    total_modul: selectedModules.size,
-                    status: 'submitted',
-                    periode: '2026',
-                    updated_at: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                
-                await db.collection('submissions').doc(`${currentUser.npp}_2026`).set(data, { merge: true });
-                
-                // Update status badge
-                const badge = document.getElementById('statusBadge');
-                badge.className = 'status-badge status-submitted';
-                badge.innerHTML = '<i class="fas fa-check-circle"></i> Sudah Submit';
-                
-                showToast('Data TNA berhasil disimpan!', 'success');
-                
-            } catch (error) {
-                console.error('Submit error:', error);
-                showToast('Gagal menyimpan data. Silakan coba lagi.', 'error');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Simpan TNA';
-            }
+
+        // ===== UTILITIES =====
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function showToast(message, type = 'success') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.remove(), 3000);
         }
     </script>
 </body>
